@@ -78,5 +78,5 @@ https://github.com/john-smilga/react-meals-application-freeCodeCamp
 
 https://www.themealdb.com/api.php
 
-3hour
+3hour17mins
 

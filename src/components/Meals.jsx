@@ -6,13 +6,13 @@ const Meals = () => {
     const { meals } = useGlobalContext();
 
     return (
-        <section>
+        <section className='section-center'>
             {
                 meals.map((singleMeal) => {
                     const { idMeal, strMeal: title, strMealThumb: image } = singleMeal;
 
                     return <article key={idMeal} className='single-meal' >
-                        <img src={image} style={{ width: '200px' }} className='img' />
+                        <img src={image} className='img' />
                         <footer>
                             <h5>{title}</h5>
                             <button className='like-btn'>Click me</button>
