@@ -9,8 +9,8 @@ import Search from './components/Search';
 function App() {
   return (
     <main>
-      {/* <Search />
-      <Favourites /> */}
+      <Search />
+      {/* <Favourites /> */}
       <Meals />
       {/* <Modal /> */}
     </main>

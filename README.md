@@ -80,3 +80,7 @@ https://www.themealdb.com/api.php
 
 3hour17mins
 
+React Icons:-
+https://react-icons.github.io/react-icons/
+npm install react-icons
+
