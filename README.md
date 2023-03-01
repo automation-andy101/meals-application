@@ -69,6 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+### `npm install axios`
 
 npx create-react-app my-app
 
@@ -78,9 +79,13 @@ https://github.com/john-smilga/react-meals-application-freeCodeCamp
 
 https://www.themealdb.com/api.php
 
-3hour17mins
 
 React Icons:-
 https://react-icons.github.io/react-icons/
 npm install react-icons
 
+
+
+
+
+3hour48mins
