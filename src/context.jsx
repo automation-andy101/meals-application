@@ -16,14 +16,7 @@ const AppProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedMeal, setSelectedMeal] = useState(null);
-
-    const selectMeal = (idMeal, favouriteMeal) => {
-        let meal;
-        meal = meals.find((meal) => meal.idMeal === idMeal);
-
-        setSelectedMeal(meal);
-        setShowModal(true);
-    }
+    const [favourites, setFavourites] = useState([]);
 
     // const fetchMeals = async () => {
     //     try {
@@ -60,10 +53,36 @@ const AppProvider = ({ children }) => {
         fetchMeals(randomMealUrl);
     }
 
+    const selectMeal = (idMeal, favouriteMeal) => {
+        let meal;
+        meal = meals.find((meal) => meal.idMeal === idMeal);
+
+        setSelectedMeal(meal);
+        setShowModal(true);
+    }
+
     const closeModal = () => {
         setShowModal(false)
     }
-    
+
+    const addToFavourites = (idMeal) => {
+        const alreadyFavourite = favourites.find((meal) => meal.idMeal === idMeal);
+        if (alreadyFavourite) return;
+        
+        const meal = meals.find((meal) => meal.idMeal === idMeal);
+        const updateFavourites = [...favourites, meal];
+        localStorage.setItem('favourites', JSON.stringify(updateFavourites));
+
+        setFavourites(updateFavourites);
+    }
+
+    const removeFromFavourites = (idMeal) => {
+        const updateFavourites = favourites.filter((meal) => meal.idMeal !== idMeal);
+        localStorage.setItem('favourites', JSON.stringify(updateFavourites));
+
+        setFavourites(updateFavourites);
+    }
+
     useEffect(() => {
         fetchMeals(allMealsUrl)
     }, []);
@@ -74,7 +93,8 @@ const AppProvider = ({ children }) => {
         fetchMeals(`${allMealsUrl}${searchTerm}`)
     }, [searchTerm]);
 
-    return <AppContext.Provider value={{ loading, meals, setSearchTerm, fetchRandomMeal, showModal, selectedMeal, selectMeal, closeModal }}>
+    return <AppContext.Provider value={{ loading, meals, setSearchTerm, fetchRandomMeal, 
+        showModal, selectedMeal, selectMeal, closeModal, favourites, addToFavourites, removeFromFavourites }}>
         {children}
     </AppContext.Provider>
 }
