@@ -8,6 +8,15 @@ const AppContext = React.createContext();
 const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s='
 const randomMealUrl = 'https://www.themealdb.com/api/json/v1/1/random.php'
 
+const getFavouritesFromLocalStorage = () => {
+    let favourites = localStorage.getItem('favourites');
+    if (favourites) {
+        favourites = JSON.parse(localStorage.getItem('favourites'));
+    } else {
+        favourites = [];
+    }
+    return favourites;
+}
 
 const AppProvider = ({ children }) => {
 
@@ -16,7 +25,7 @@ const AppProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedMeal, setSelectedMeal] = useState(null);
-    const [favourites, setFavourites] = useState([]);
+    const [favourites, setFavourites] = useState(getFavouritesFromLocalStorage());
 
     // const fetchMeals = async () => {
     //     try {
@@ -55,7 +64,13 @@ const AppProvider = ({ children }) => {
 
     const selectMeal = (idMeal, favouriteMeal) => {
         let meal;
-        meal = meals.find((meal) => meal.idMeal === idMeal);
+
+        if (favouriteMeal) {
+            meal = favourites.find((meal) => meal.idMeal === idMeal);
+        }
+        else {
+            meal = meals.find((meal) => meal.idMeal === idMeal);
+        }
 
         setSelectedMeal(meal);
         setShowModal(true);
@@ -71,16 +86,16 @@ const AppProvider = ({ children }) => {
         
         const meal = meals.find((meal) => meal.idMeal === idMeal);
         const updateFavourites = [...favourites, meal];
-        localStorage.setItem('favourites', JSON.stringify(updateFavourites));
 
         setFavourites(updateFavourites);
+        localStorage.setItem('favourites', JSON.stringify(updateFavourites));
     }
 
     const removeFromFavourites = (idMeal) => {
         const updateFavourites = favourites.filter((meal) => meal.idMeal !== idMeal);
-        localStorage.setItem('favourites', JSON.stringify(updateFavourites));
 
         setFavourites(updateFavourites);
+        localStorage.setItem('favourites', JSON.stringify(updateFavourites));
     }
 
     useEffect(() => {
